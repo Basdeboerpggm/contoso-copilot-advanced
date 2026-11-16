@@ -201,7 +201,7 @@ Same name twice → **personal** repo. Different name → **organisation** repo.
 6. **Don't wait** — continue with Step 4.
 
 > 👀 **Expected:** within a minute a **draft PR** appears, linked to the issue. The session log shows it reading `statementService.ts` and running tests.
-> 🆘 **Fallback** (Copilot not in the assignee list, org disallows the cloud agent, or managed user account): use the IDE agent instead (Session Target **Copilot**, Agent **Agent**), then:
+> 🆘 **Fallback** (Copilot not in the assignee list, org disallows the cloud agent, or managed user account): use the IDE agent instead (**Copilot · Interactive · Manual permissions**), then:
 > ```bash
 > git switch -c fix/bl-01
 > # paste the prompt above into chat, review the diff, then:

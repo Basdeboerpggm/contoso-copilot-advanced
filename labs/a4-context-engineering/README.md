@@ -144,7 +144,7 @@ flowchart LR
    git add docs/evaluations && git commit -m "docs: A4 scorecard template"
    git switch -c a4-baseline
    ```
-5. Open the Chat view (`Ctrl+Alt+I`) → **New Chat (+)**. Set **Session Target** → **Copilot**, **Agent** → **Agent**, **Language model** → **Auto**, **Permissions** → **Manual**.
+5. Open the Chat view (`Ctrl+Alt+I`) → **New Chat (+)**. Set **Harness** → **Copilot** · **Agent mode** → **Interactive** · **Model** → **Auto** · **Permissions** → **Manual permissions**.
 6. Start a **5-minute timer** (phone or watch). Paste this prompt — deliberately short, no conventions mentioned:
    ```text
    Implement BL-03 (docs/backlog/BL-03-overdue-service-requests.md).
@@ -161,7 +161,7 @@ flowchart LR
 > 👀 **Expected:** a working-ish endpoint with **some** conventions missed. Typical misses: SLA table inside the route, `/overdue` registered after `/:id`, no OpenAPI entry.
 > ⚠️ **If not:** a perfect 8/8 is possible — models improve. Keep the score; Step 6 then shows that context makes it *repeatable*, not luck.
 
-> ⏩ **Short on time or a slow model? Plan-only fallback:** in step 5 pick **Agent** → **Plan** instead. Score conventions 1–7 on the plan ("does the plan say …?"), mark 8 as `n/a`.
+> ⏩ **Short on time or a slow model? Plan-only fallback:** in step 5 pick **Agent mode** → **Plan** instead. Score conventions 1–7 on the plan ("does the plan say …?"), mark 8 as `n/a`.
 
 10. Keep the score, throw away the code:
     ```bash
@@ -306,7 +306,7 @@ applyTo: 'api/test/**/*.ts'
 **Why:** observe, don't assume — a file that isn't loaded has zero effect.
 
 1. **Chat: Open Customizations** → **Instructions**: your 3 files are listed (this proves *discovery*).
-2. **New Chat (+)** → **Session Target** **Copilot**, **Agent** **Ask**.
+2. **New Chat (+)** → **Copilot · Interactive · Manual permissions**.
 3. Paste:
    ```text
    Open api/src/routes/serviceRequests.ts and api/test/api.test.ts.
@@ -585,7 +585,7 @@ console.log(`✅ ${routeCount} routes checked: all documented in api/openapi.yam
    /compact
    ```
    > 👀 **Expected:** the conversation is summarised; you can continue with a smaller context.
-2. **New Chat (+)** → **Agent** **Ask** → paste:
+2. **New Chat (+)** → **Copilot · Interactive · Manual permissions** → paste:
    ```text
    What do you remember about this repository and about me?
    Separate repository facts from user preferences. Do not store anything new.
@@ -626,7 +626,7 @@ console.log(`✅ ${routeCount} routes checked: all documented in api/openapi.yam
 | **Microsoft Learn MCP** (A3, `microsoftLearn` in `.mcp.json`) | Microsoft / Azure documentation | "Use the microsoftLearn MCP server to …" — then **expand the tool call** |
 | **Copilot Spaces** (optional, github.com) | Curated team knowledge (repos, docs, notes) shared with others | Reachable from the IDE via the GitHub MCP server |
 
-1. Pick **one** and try it in a **New Chat (+)** with **Agent** **Ask**:
+1. Pick **one** and try it in a **New Chat (+)** with **Copilot · Interactive · Manual permissions**:
    ```text
    Using #web/fetch https://nodejs.org/api/test.html: in 3 bullets, how could our tests mock time instead of passing a fixed date to startTestServer()?
    Quote the section you used. Do not change any files.

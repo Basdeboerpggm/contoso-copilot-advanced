@@ -94,7 +94,7 @@ sequenceDiagram
 
 | Situation | Better choice | Why |
 |---|---|---|
-| Small edit or quick question | One chat with **Agent** or **Ask** | Every subagent uses **AI credits** and adds coordination |
+| Small edit or quick question | One chat in **Interactive** mode | Every subagent uses **AI credits** and adds coordination |
 | Latency matters (live pairing) | Single agent | Each delegation adds a round trip |
 | Steps need the *full* shared history | Single agent | A subagent only sees what the lead passes on |
 | Recurring, multi-step, risky work (like a feature) | ✅ Orchestrator–worker | Repeatable roles, least privilege, gates |
@@ -143,13 +143,13 @@ flowchart LR
 
 ## Step 2 — Try the built-in Plan agent (⏱️ 5 min)
 
-**Why:** see the *baseline* first — a single built-in agent that plans but does not edit.
+**Why:** see the *baseline* first — the built-in **Plan** mode plans but does not edit until you approve.
 
 1. Open the Chat view: `Ctrl+Alt+I` (macOS `⌃⌘I`) → **New Chat (+)**.
-2. Set **Session Target** → **Copilot**, **Agent** → **Plan**, **Language model** → **Auto**, **Permissions** → **Manual**.
+2. Set **Harness** → **Copilot** · **Agent mode** → **Plan** (*plan first, execute when ready*) · **Model** → **Auto** · **Permissions** → **Manual permissions**.
 3. Paste:
    ```text
-   /plan Implement backlog item docs/backlog/BL-02-early-retirement.md (rule R5 in docs/domain/scheme-rules.md).
+   Implement backlog item docs/backlog/BL-02-early-retirement.md (rule R5 in docs/domain/scheme-rules.md).
    List the files to change, the existing tests that will break, and the new tests to add.
    Do not edit any files.
    ```
@@ -158,12 +158,12 @@ flowchart LR
    ```bash
    git status --short
    ```
-6. Start a **New Chat (+)** — we'll do the real work with our own agents.
+6. **Don't approve the plan.** If Copilot offers to start implementing, ignore it. Start a **New Chat (+)**: we'll do the real work with our own agents.
 
 > 👀 **Expected:** a structured plan (steps, files such as `api/src/domain/pension.ts`, tests). Tool calls are reads/searches only. `git status --short` prints **nothing**.
-> ⚠️ **If not:** if **Plan** is missing from the Agent dropdown, check Session Target is **Copilot**.
+> ⚠️ **If not:** no **Plan** in the agent-mode menu? Check the harness is **Copilot** and VS Code is up to date.
 
-<!-- 📸 SCREENSHOT: a2-01-plan-agent.png — Plan agent response with expanded read/search tool calls -->
+<!-- 📸 SCREENSHOT: a2-01-plan-mode.png — Plan mode response with expanded read/search tool calls -->
 
 ---
 
@@ -344,7 +344,7 @@ You coordinate specialists and talk to the human. You never edit files or run co
 
 - [ ] `ls .github/agents` shows 4 `*.agent.md` files
 - [ ] `grep -h '^name:' .github/agents/*.agent.md` prints the 4 exact names
-- [ ] **Feature Lead** is selectable in the Agent dropdown; **Pension Analyst** and **Implementer** are not
+- [ ] In a **New Chat (+)**, the **agent dropdown** lists **Feature Lead**; **Pension Analyst** and **Implementer** are not listed
 
 ---
 
@@ -374,7 +374,9 @@ sequenceDiagram
 
 ### 5a · Start the run
 
-1. **New Chat (+)**. Set **Session Target** → **Copilot**, **Agent** → **Feature Lead**, **Language model** → **Auto**, **Permissions** → **Manual**.
+1. **New Chat (+)**. Set **Harness** → **Copilot** · **Agent mode** → **Interactive** · **Model** → **Auto** · **Permissions** → **Manual permissions**.
+   Then pick **Feature Lead** from the **agent dropdown** (it appears in the chat input once the repo has custom agents).
+   > ⚠️ **No agent dropdown?** Run **Chat: Open Customizations → Agents**: the 4 agents must be listed without errors. Then start a **New Chat (+)**: new chats load new agents.
 2. Paste:
    ```text
    Implement backlog item docs/backlog/BL-02-early-retirement.md (rule R5 in docs/domain/scheme-rules.md).
@@ -463,7 +465,7 @@ sequenceDiagram
 
 **Why:** separate contexts with different focus areas surface different issues — at extra cost.
 
-1. In the **same** Feature Lead chat (or a new chat with **Agent** → **Agent**), paste:
+1. In the **same** Feature Lead chat (or a new chat with **Copilot · Interactive · Manual permissions**), paste:
    ```text
    Use two Reviewer subagents in parallel on the BL-02 changes (the changed files from the Implementer's report):
    - Reviewer 1 focus: correctness against rule R5 in docs/domain/scheme-rules.md.

@@ -16,9 +16,10 @@ check('Node.js 24+', () => {
 });
 check('node:sqlite available', () => { execSync(`node -e "require('node:sqlite')"`, { stdio: 'ignore' }); return 'ok'; });
 check('git', () => cmd('git --version'));
-check('Unit tests (npm test)', () => {  
-  const r = spawnSynd('npm test --silent', { shell: true, enconding: 'utf8'});
-  id (e.error) throw r.error;
+check('Unit tests (npm test)', () => {
+  // One command string + shell: works on Windows (npm.cmd), macOS and Linux.
+  const r = spawnSync('npm test --silent', { shell: true, encoding: 'utf8' });
+  if (r.error) throw r.error;
   const pass = /ℹ pass (\d+)/.exec(r.stdout)?.[1];
   const fail = /ℹ fail (\d+)/.exec(r.stdout)?.[1];
   if (r.status !== 0) throw new Error(`${fail ?? '?'} failing test(s) — run npm test`);

@@ -6,7 +6,8 @@
 | | Model A | Model B |
 |---|---|---|
 | Model (name as shown in the picker) | *a fast, lightweight model* (example) | *a deep-reasoning model* (example) |
-| Harness · Agent · Permissions | Copilot · Ask · Manual | Copilot · Ask · Manual |
+| Harness · Mode · Permissions | Copilot · Interactive · Manual | Copilot · Interactive · Manual |
+| Reasoning effort | | |
 | Date | 2026-11-18 | 2026-11-18 |
 
 ## What each model proposed (example)

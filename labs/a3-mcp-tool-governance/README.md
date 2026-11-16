@@ -123,7 +123,7 @@ flowchart LR
    npm test
    ```
    > 👀 **Expected:** `ℹ fail 0`.
-3. Open the Chat view (`Ctrl+Alt+I`) → **New Chat (+)**. Set: **Session Target** → **Copilot** · **Agent** → **Agent** · **Language model** → **Auto** · **Permissions** → **Manual**.
+3. Open the Chat view (`Ctrl+Alt+I`) → **New Chat (+)**. Set: **Harness** → **Copilot** · **Agent mode** → **Interactive** · **Model** → **Auto** · **Permissions** → **Manual permissions**.
 
 > 🔐 **Synthetic data only.** Never paste real member data, tokens or secrets into prompts, `.mcp.json` or screenshots.
 
@@ -362,7 +362,7 @@ flowchart LR
 | Gate | Can fail because… | Prompt-proof? |
 |---|---|---|
 | 2 · Allow-list | A human edits a JSON file (you just did) | ✅, but **config can drift** |
-| 4 · Approval | Click fatigue, *Always Allow*, someone switches to *Allow all* | ❌ humans can be convinced |
+| 4 · Approval | Click fatigue, *Always Allow*, someone switches to *Allow all* or *Autopilot*; *Assisted* lets an AI judge decide | ❌ humans (and AI judges) can be convinced |
 | 5 · Hook | Code + tests + code owners. Runs **before** the tool, **fails closed**, logs every decision. | ✅ **deterministic** |
 
 ### ✅ Checkpoint 2
@@ -442,16 +442,16 @@ You are the **Pension Advisor** for the fictional Contoso Basic Scheme 2026.
    grep -E "delete_member_data|search_service_requests" .github/agents/pension-advisor.agent.md || echo "✅ least privilege"
    ```
    > 👀 **Expected:** `✅ least privilege`
-3. **New Chat (+)** → **Agent** dropdown → **Pension Advisor**. Paste:
+3. **New Chat (+)** → keep **Copilot · Interactive · Manual permissions** → pick **Pension Advisor** in the **agent dropdown**. Paste:
    ```text
    What is the yearly accrual for a 46,000 full-time salary at 60% part-time? Which rule applies?
    Then summarise all open complaints from the service requests.
    ```
 
 > 👀 **Expected:** the first part uses `calculate_projection` (→ 298.78). For the second part, the advisor says it has **no access** to service requests. The tool call list shows no `search_service_requests`.
-> ⚠️ **If not:** the agent isn't in the dropdown? Check the file path and that `description` is set (it's required in the Copilot harness).
+> ⚠️ **If not:** the agent isn't in the agent dropdown? Check the file path and that `description` is set (it's required in the Copilot harness), then start a **New Chat (+)**.
 
-<!-- 📸 SCREENSHOT: a3-04-advisor.png — Agent dropdown showing Pension Advisor + response refusing service requests -->
+<!-- 📸 SCREENSHOT: a3-04-advisor.png — agent dropdown showing Pension Advisor + response refusing service requests -->
 
 ---
 

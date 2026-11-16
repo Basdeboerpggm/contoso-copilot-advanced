@@ -86,16 +86,20 @@ flowchart LR
 
 1. Open the Chat view: `Ctrl+Alt+I` (macOS `⌃⌘I`).
 2. Click **New Chat (+)**.
-3. Set **Session Target** → **Copilot**.
-4. Open the **Language model** picker in the chat input.
-5. Look for: **Auto**, an "**Org default**" label, and (maybe) **Copilot Fusion**.
+3. Set **Harness** → **Copilot** (bottom bar, first button).
+4. Open the **model picker**: click the model name **inside** the chat box, bottom-left (it looks like `<model> │ Medium · 272K`).
+5. Look for: **Auto**, an "**Org default**" label, (maybe) **Copilot Fusion**, and the **reasoning effort** (*Low · Medium · High*) next to the model.
 6. Open the [supported models](https://docs.github.com/en/copilot/reference/ai-models/supported-models) doc in your browser.
 7. Compare: which models from the doc are **missing** in your picker? Write down 2–3.
 
 > 👀 **Expected:** a list of models plus **Auto**. Your list is probably **shorter** than the doc — your org's model policy decides what you see.
 > ⚠️ **If not:** an empty or tiny list usually means a license/policy issue — check you're signed in with the GitHub account that has your organisation's Copilot license (Accounts icon, bottom-left).
 
-<!-- 📸 SCREENSHOT: a1-01-model-picker.png — Language model picker open in a Copilot session, showing Auto and Org default -->
+![Chat input: the model picker sits inside the chat box](../../docs/images/screenshots/00-chat-input.png)
+
+> 💡 **Model vs. effort:** the model is *which brain*; the effort is *how long it thinks*. Both change quality, speed and AI credits.
+
+<!-- 📸 SCREENSHOT: a1-01-model-picker.png — model picker open in a Copilot session, showing Auto, Org default and the effort levels -->
 
 > 💡 Want strengths side by side? See the [model comparison](https://docs.github.com/en/copilot/reference/ai-models/model-comparison) doc.
 
@@ -105,10 +109,10 @@ flowchart LR
 
 **Why:** "this model feels smarter" is an opinion; a scorecard with verified numbers is evidence.
 
-### 2a · Ask model A
+### 2a · Question for model A
 
 1. Click **New Chat (+)**.
-2. Set, in this order: **Session Target** → **Copilot** · **Agent** → **Ask** · **Language model** → *model A* (pick one from the picker) · **Permissions** → **Manual**.
+2. Set, in this order: **Harness** → **Copilot** · **Agent mode** → **Interactive** · **Model** → *model A* (pick one from the picker, keep effort **Medium**) · **Permissions** → **Manual permissions**.
 3. Paste this prompt:
 
 ```text
@@ -121,10 +125,10 @@ Do not change any files. Do not run any commands.
 
 4. Note how long the answer took (fast / ok / slow).
 
-### 2b · Ask model B
+### 2b · Same question for model B
 
 1. Click **New Chat (+)** — a **new** chat, so model B doesn't see model A's answer.
-2. Same controls, but **Language model** → *model B* (a **different** model from the picker).
+2. Same controls, but **Model** → *model B* (a **different** model, same effort).
 3. Paste the **same** prompt.
 
 > 👀 **Expected:** two tables of 5 rows each. They will differ in which edge cases they pick (franchise, cap, part-time, invalid factor…) and possibly in the expected values.
@@ -170,7 +174,8 @@ node -e "import('./api/src/domain/pension.ts').then(m=>{for (const [s,f] of [[17
 | | Model A | Model B |
 |---|---|---|
 | Model (name as shown in the picker) | | |
-| Harness · Agent · Permissions | Copilot · Ask · Manual | Copilot · Ask · Manual |
+| Harness · Mode · Permissions | Copilot · Interactive · Manual | Copilot · Interactive · Manual |
+| Reasoning effort | | |
 | Date | | |
 
 ## Scores
@@ -485,7 +490,7 @@ rm -f .github/hooks/logs/audit.jsonl
 ```
 
 2. Click **New Chat (+)** — hooks are picked up by **new** sessions.
-3. Set: **Session Target** → **Copilot** · **Agent** → **Agent** · **Language model** → **Auto** · **Permissions** → **Manual**.
+3. Set: **Harness** → **Copilot** · **Agent mode** → **Interactive** · **Model** → **Auto** · **Permissions** → **Manual permissions**.
 4. Paste:
 
 ```text
@@ -529,7 +534,7 @@ git check-ignore .github/hooks/logs/audit.jsonl
 <!-- 📸 SCREENSHOT: a1-03-hook-denied.png — Agent chat showing the denied edit tool call with the policy reason -->
 <!-- 📸 SCREENSHOT: a1-04-hooks-tab.png — Agent Customizations editor, Hooks tab listing guardrails.json -->
 
-> ⚠️ **Fallback — live test doesn't fire?** Hooks are **Preview** and your organisation may restrict which hooks run. Check the Session Target is **Copilot** and you started a **new** chat; then look in **Agent Debug Logs**. Still nothing? The unit tests already prove the logic — write *"hooks blocked/not firing in our environment"* as a **finding** in your control map. That is a valuable result for your platform team.
+> ⚠️ **Fallback — live test doesn't fire?** Hooks are **Preview** and your organisation may restrict which hooks run. Check the harness is **Copilot** and you started a **new** chat; then look in **Agent Debug Logs**. Still nothing? The unit tests already prove the logic — write *"hooks blocked/not firing in our environment"* as a **finding** in your control map. That is a valuable result for your platform team.
 
 ### ✅ Checkpoint 2
 

@@ -11,7 +11,7 @@
 | Open the Command Palette | `Ctrl+Shift+P` (Win/Linux) · `⇧⌘P` (macOS) |
 | Manage agents, instructions, skills, hooks, MCP servers, tools | Command Palette → **Chat: Open Customizations** |
 | Open the Agents window (see subagents, sessions) | Title bar → **Open in Agents** |
-| Plan before coding | Agent dropdown → **Plan**, or type `/plan …` |
+| Plan before coding | Agent mode → **Plan** (bottom bar, second button) |
 | Run a skill | Type `/` + the skill name, e.g. `/add-api-endpoint` |
 | Attach context | Type `#` → `#file`, `#codebase`, `#terminalSelection` … or **Add Context** |
 | Free up context | `/compact` — or start a **New Chat** for a new task |
@@ -22,12 +22,15 @@
 
 ## The 4 controls (choose them in this order)
 
-| Control | Today we use | Notes |
-|---|---|---|
-| **Session Target** (harness) | **Copilot** | Default. *Local* is deprecated (removed Feb 2027). Pick it **before** the first prompt. |
-| **Agent** (role) | **Ask** (read-only) · **Agent** (makes changes) · **Plan** · your custom agents | There is **no** "Edit" agent and **no** "Chat > Ask" menu. |
-| **Language model** | **Auto** unless the lab says otherwise | Model = quality **and** cost (AI credits). |
-| **Permissions** | **Manual** | Approve each tool call. Never use `/yolo` or *Allow all* in this workshop. |
+| Control | Where | Today we use | Notes |
+|---|---|---|---|
+| **Harness** (docs: *Session Target*) | Bottom bar, 1st button | **Copilot** | Default. *Local* is deprecated (removed Feb 2027). *Cloud* runs the session remotely. Pick it **before** the first prompt. |
+| **Agent mode** | Bottom bar, 2nd button | **Interactive** · **Plan** when a lab says so | **Autopilot** auto-approves everything: never today. There is **no** "Ask" or "Edit" agent and **no** "Chat > Ask" menu. |
+| **Custom agent** | Agent dropdown (appears when the repo has `.github/agents/*.agent.md`) | Only in A2/A3 | E.g. **Feature Lead**, **Pension Advisor**. |
+| **Model** (+ reasoning effort) | Inside the chat box, bottom-left | **Auto** unless the lab says otherwise | Model and effort (Low/Medium/High) = quality **and** cost (AI credits). |
+| **Permissions** | Same menu as Agent mode → **Permissions** | **Manual permissions** | Approve each tool call. *Assisted* (AI judge) and *Allow all* exist; not today. Never `/yolo`. |
+
+> 🔎 **Read-only question?** Interactive + "Do not change any files" in the prompt + Manual permissions → any edit or command still needs your click.
 
 ## Customization files (Copilot harness)
 

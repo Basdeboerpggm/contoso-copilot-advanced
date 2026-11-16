@@ -14,7 +14,7 @@ By the end of this lab you have:
 
 ```mermaid
 flowchart LR
-    A[1 · Create repo<br/>from template] --> B[2 · Codespace<br/>+ VS Code Desktop] --> C[3 · Verify &<br/>run the app] --> D[4 · Learn the<br/>4 chat controls] --> E[5 · First<br/>Ask question]
+    A[1 · Create repo<br/>from template] --> B[2 · Codespace<br/>+ VS Code Desktop] --> C[3 · Verify &<br/>run the app] --> D[4 · Learn the<br/>4 chat controls] --> E[5 · First<br/>question]
 ```
 
 ---
@@ -70,39 +70,67 @@ flowchart LR
 
 ![The 4 chat controls](../../docs/images/chat-controls.svg)
 
-| Control | Analogy | Today's default |
-|---|---|---|
-| **Session Target** (harness) | *Which kitchen* cooks the meal | **Copilot** |
-| **Agent** | *Which chef* — a waiter who only answers (Ask), a cook (Agent), a menu planner (Plan) | depends on the lab |
-| **Language model** | *Which brain* the chef uses — bigger brain = better and more expensive | **Auto** |
-| **Permissions** | *Who signs off* before the chef uses a knife | **Manual** |
+| # | Control | Where in the Chat view | Analogy | Today's default |
+|---|---|---|---|---|
+| 1 | **Harness** (the docs also call it *Session Target*) | Bottom bar, **first** button | *Which kitchen* cooks the meal | **Copilot** |
+| 2 | **Agent mode** | Bottom bar, **second** button (shows *Interactive*) | *How the chef works* — with you step by step (Interactive), menu first (Plan), or alone (Autopilot) | **Interactive** (A2 also uses **Plan**) |
+| 3 | **Model** (+ reasoning effort) | **Inside** the chat box, bottom-left (e.g. `<model> │ Medium · 272K` = model │ effort · context size) | *Which brain* the chef uses — bigger brain = better and more expensive | **Auto** |
+| 4 | **Permissions** | Same menu as the agent mode, **Permissions** section (bottom bar shows *Manual permissions*) | *Who signs off* before the chef uses a knife | **Manual permissions** |
 
 1. Open the Chat view: `Ctrl+Alt+I` (macOS `⌃⌘I`).
 2. Click **New Chat (+)**.
-3. In the chat input, set — **in this order**:
-   1. **Session Target** → **Copilot**
-   2. **Agent** → **Ask**
-   3. **Language model** → **Auto**
-   4. **Permissions** → **Manual**
-4. Look at the chat title: it starts with the harness name (**Copilot**).
+3. Set the controls — **in this order**:
 
-<!-- 📸 SCREENSHOT: 00-chat-controls.png — Chat view with Session Target, Agent, model and Permissions pickers visible -->
+   **4.1 · Harness → Copilot.** Click the first button in the bottom bar and choose **Copilot**.
 
-> ⚠️ **Don't see "Copilot" in Session Target?** Update VS Code (Help → Check for Updates) and the GitHub Copilot Chat extension, then reload. Still missing → your organisation may restrict it: tell a coach.
+   ![Harness picker with Copilot, Local and Cloud](../../docs/images/screenshots/00-harness-picker.png)
+
+   **4.2 · Agent mode → Interactive.** Click the second button. One menu opens with two sections, **Agent mode** and **Permissions**. Under **Agent mode**, choose **Interactive** (*step-by-step collaboration*).
+
+   ![Agent mode picker with Interactive, Plan and Autopilot](../../docs/images/screenshots/00-mode-picker.png)
+
+   **4.3 · Model → Auto.** Click the model name **inside** the chat box and choose **Auto**. If *Auto* isn't listed, keep the model that is selected.
+
+   **4.4 · Permissions → Manual permissions.** Open the same menu again and expand **Permissions** (or click *Manual permissions* in the bottom bar). Choose **Manual permissions**. Leave **Sandboxing for terminal** as it is.
+
+   ![Permissions picker with Manual, Assisted and Allow all](../../docs/images/screenshots/00-permissions-picker.png)
+
+4. Check the bottom bar. It reads **Copilot · Interactive · Manual permissions**:
+
+   ![Chat input with Copilot, Interactive and Manual permissions](../../docs/images/screenshots/00-chat-input.png)
+
+| Agent mode | What it does | When we use it today |
+|---|---|---|
+| **Interactive** | Works with you step by step: edits and commands ask first (with Manual permissions) | Most labs |
+| **Plan** | Researches and writes a plan first, then waits — *executes only when you approve* | A2 baseline, A4 fallback |
+| **Autopilot** | Works alone until done: auto-approves every tool, retries, answers its own questions | ❌ **Never** in this workshop |
+
+| Permissions | What it does | Today |
+|---|---|---|
+| **Manual permissions** | Asks you before any tool call that your approval settings don't already allow | ✅ Always |
+| **Assisted permissions** (*Recommended* label) | An AI judge decides which tool calls are safe; the rest ask you | ❌ Not today: we want to *see* every call while learning |
+| **Allow all** | Runs every tool call without asking | ❌ Never |
+
+> 💡 **No "Ask" agent any more.** Older tutorials say *Agent → Ask / Agent / Edit* or *Chat > Ask*. In today's Copilot harness you choose an **agent mode** (Interactive, Plan, Autopilot). To keep a chat read-only, say **"Do not change any files"** in the prompt and keep **Manual permissions**: any edit or command must still be approved by you.
+> 💡 **Custom agents** (lab A2) appear in an **agent dropdown** once your repo contains `.github/agents/*.agent.md` files.
+
+> ⚠️ **Don't see "Copilot" in the harness picker?** Update VS Code (Help → Check for Updates) and the GitHub Copilot Chat extension, then reload. Still missing → your organisation may restrict it: tell a coach.
+> ⚠️ **A banner says "1 user customization needs an update… Review Migrations"?** It's about **your own** user-level settings, not this repo. You can ignore it for today.
 
 ---
 
 ## Step 5 — Your first question to an agent (⏱️ 3 min)
 
-**Why:** *Ask* uses read-only tools — the safest way to explore unknown code.
+**Why:** exploring unknown code *before* changing it is the safest first move. Interactive mode + Manual permissions + "Do not change any files" = look, don't touch.
 
-1. Paste this prompt and press **Enter**:
+1. Keep **Copilot · Interactive · Manual permissions**. Paste this prompt and press **Enter**:
    ```text
    Explain the architecture of this repository in 5 bullet points.
    Then explain how the annual statement for a member is calculated, naming the files and functions involved.
    Do not change any files.
    ```
 2. While it answers, **expand the tool calls** (the collapsed lines such as *Read file…* / *Searched…*) to see which files it actually opened.
+3. If Copilot asks to **edit a file** or **run a command**: click **Skip** (or **Deny**). This question needs neither.
 
 > 👀 **Expected:** a summary mentioning `api/src/domain/pension.ts`, `api/src/services/statementService.ts`, the layers (routes → services → repositories/domain) and SQLite.
 > 💡 **Observe, don't assume:** an answer that names files it never opened is a guess. The tool calls are your evidence.
@@ -111,7 +139,7 @@ flowchart LR
 
 - [ ] `npm run verify` shows **✅ Ready for the workshop**
 - [ ] The app shows 8 members on port 3000
-- [ ] Your chat title starts with **Copilot**, agent **Ask**, permissions **Manual**
+- [ ] Your bottom bar reads **Copilot · Interactive · Manual permissions**
 - [ ] You can name the 3 files involved in the statement calculation
 
 ---
@@ -125,6 +153,8 @@ flowchart LR
 | Port 3000 does not open | **Ports** tab → right-click 3000 → **Open in Browser**. |
 | Chat says you have no access | Check you're signed in with the GitHub account that has your organisation's Copilot license (Accounts icon, bottom-left). |
 | Copilot harness missing | Update VS Code & extension; if org policy blocks it, use **Local** for today and tell a coach (it's deprecated, but works for most labs). |
+| No **Interactive / Plan / Autopilot** menu, but an old *Ask / Agent / Plan* dropdown | You are on an old VS Code or on the **Local** harness. Update VS Code, then pick **Copilot** in the harness picker. |
+| "1 user customization needs an update… Review Migrations" banner | About your own user settings, not this repo. Ignore it today, or click **Review Migrations** later. |
 
 ## 📚 Learn more
 
