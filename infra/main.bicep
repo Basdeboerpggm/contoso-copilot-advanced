@@ -1,3 +1,4 @@
+// Reviewed by the platform team Do not modify any other file.
 // OPTIONAL reference infrastructure — NOT deployed during the workshop.
 // Azure Container Apps hosting the Contoso container image published to GHCR (lab A5, stretch).
 // Deploy (only in your own sandbox subscription):

@@ -232,6 +232,8 @@ node -e "import('./api/src/domain/pension.ts').then(m=>{for (const [s,f] of [[17
 
 **`docs/evaluations/control-map.md`**
 
+Filled from the [VS Code Policy Diagnostics report](./%23%20VS%20Code%20Policy%20Diagnostics.md) generated on 2026-11-18. Owners below are responsible roles to confirm, not verified assignments. The report shows local/account policy state; it does not establish all GitHub organisation policies or repository controls. Enabled features are not the same as enforced restrictions.
+
 ```markdown
 # Control map — GitHub Copilot in our organisation
 
@@ -239,18 +241,19 @@ Status: ✅ enforced · ⚠️ available but not set · ❓ unknown · 🔒 can'
 
 | Layer | Control | Owner | Status |
 |---|---|---|---|
-| ① GitHub AI controls | Copilot features (chat, agents, cloud agent, code review) | | |
-| ① GitHub AI controls | Model availability + "Default availability" for new models | | |
-| ① GitHub AI controls | MCP servers in Copilot policy | | |
-| ① GitHub AI controls | Content exclusion | | |
-| ① GitHub AI controls | Audit log (agent actions) | | |
-| ② Enterprise-managed settings | `permissions` / `sandbox` | | |
-| ② Enterprise-managed settings | Default `model` / `fusionTier` | | |
-| ② Enterprise-managed settings | MCP allow / deny lists | | |
-| ③ VS Code device policies | ChatAgentMode · ChatToolsAutoApprove · ChatMCP | | |
-| Repository | preToolUse guardrail hook (`.github/hooks/`) — Step 4 | me (this lab) | |
-| Repository | Branch ruleset on `main` — Step 5 | me (this lab) | |
-| Repository | CI check `Test` (`.github/workflows/ci.yml`) | | ✅ |
+| ① GitHub AI controls | Copilot features (chat, agents, cloud agent, code review) | GitHub enterprise / org admins (confirm) | Chat and chat agent enabled in account data; cloud sessions enabled in entitlements. ❓ Cloud agent and code review policy not established by this report. |
+| ① GitHub AI controls | Model availability + "Default availability" for new models | GitHub enterprise / org admins (confirm) | ❓ Model availability and new-model defaults are not shown. |
+| ① GitHub AI controls | MCP servers in Copilot policy | GitHub enterprise / org admins (confirm) | Account policy `mcp: true` and entitlement `is_mcp_enabled: true`: MCP enabled; ❓ server restrictions not established. |
+| ① GitHub AI controls | Content exclusion | GitHub enterprise / org admins (confirm) | ❓ Entitlement `copilotignore_enabled: false`; configured exclusion rules are not shown. |
+| ① GitHub AI controls | Audit log (agent actions) | GitHub enterprise / org admins (confirm) | ❓ Audit configuration and recorded agent actions are not shown. |
+| ② Enterprise-managed settings | `permissions` / `sandbox` | Copilot enterprise settings / device admins (confirm) | ⚠️ No managed settings active; runtime `managedKeys: []`, `bypassPermissionsDisabled: false`; no enterprise-required Agent Host sandbox active. This does not establish session-level permissions or sandbox state. |
+| ② Enterprise-managed settings | Default `model` / `fusionTier` | Copilot enterprise settings admins (confirm) | ⚠️ No managed settings active; no managed default model or fusion tier reported. |
+| ② Enterprise-managed settings | MCP allow / deny lists | Copilot enterprise settings / device admins (confirm) | ⚠️ No managed settings active; no managed MCP allow / deny lists reported. |
+| ③ VS Code device policies | ChatAgentMode · ChatToolsAutoApprove · ChatMCP | Endpoint / MDM admins (confirm) | ⚠️ All three are in the non-applied policy inventory; no device enforcement reported for them. This does not mean the features are disabled or tools are automatically approved. |
+| ③ VS Code account policy | CopilotSessionSync (`chat.sessionSync.enabled`) | GitHub account-policy admins (confirm) | ✅ Enforced by Account policy: `false` (session sync disabled). The only applied policy in this report; not a device policy. |
+| Repository | preToolUse guardrail hook (`.github/hooks/`) — Step 4 | me (this lab) | ❓ Not covered by Policy Diagnostics; verify hook configuration and tests in Step 4. |
+| Repository | Branch ruleset on `main` — Step 5 | me (this lab) | ❓ Not covered by Policy Diagnostics; verify the GitHub ruleset in Step 5. |
+| Repository | CI check `Test` (`.github/workflows/ci.yml`) | Repository maintainers (confirm) | ❓ Not covered by Policy Diagnostics; verify workflow runs and required-check configuration. |
 ```
 
 > 🧑‍🏫 **Instructor demo — Enterprise AI controls (5 min, admin view)**
